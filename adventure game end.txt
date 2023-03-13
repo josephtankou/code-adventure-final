@@ -1,0 +1,118 @@
+import time
+import random
+import string
+import enum
+
+trophees = ["$25", "$50", "$100"]
+trophy = random.choice(trophees)
+
+
+class Color(enum.Enum):
+    red = '\033[91m'
+    purple = '\033[95m'
+    blue = '\033[94m'
+    cyan = '\033[96m'
+    green = '\033[92m'
+    black = '\033[0m'
+    bold = '\033[1m'
+    underline = '\033[4m'
+
+    @classmethod
+    def get_color(cls):
+        return random.choice([color.value for color in cls])
+
+
+def typewriter_simulator(message):
+    for char in message:
+        print(char, end='')
+        if char in string.punctuation:
+            time.sleep(.5)
+        time.sleep(.03)
+    print('')
+
+
+def print_pause(message, Delay=0):
+    # typewriter_simulator(message)
+    print(Color.get_color() + message)
+    time.sleep(Delay)
+
+
+def valid_input(prompt, option1, option2):
+    while True:
+        response = input(prompt).lower()
+        if option1 == response:
+            return response
+        elif option2 == response:
+            return response
+        else:
+            print_pause("Sorry, I don't understand.")
+
+
+def play_game():
+    # Infinite loop
+    while True:
+        print_pause("That's great, welcome to my adventure game")
+        answer = random.choice(["cave", "jungle"])
+        if answer == "cave":
+            # print("you go into the cave and see a bear")
+            print_pause("you go into the cave and see a bear")
+            # answer = input("Do you want to fight or run? [fight/run] ")
+            response = valid_input("Do want to fight or run ?\n",
+                                   "fight", "run")
+            if "fight" in response:
+                print_pause("Bears are really strong! You lose!")
+                # break
+                play_again()
+            elif "run" in response:
+                print_pause("You ran away! You win!")
+                # break
+                play_again()
+            else:
+                print_pause('thank you')
+        elif answer == "jungle":
+            print_pause("You meet a tiger and you get eaten! You lose!")
+            break
+        else:
+            print_pause("invalid option")
+        # go to map X
+        # break if the case
+
+        # go to map Y
+        # break if pertinent
+
+        # go to map Z
+        # break if applicable
+
+
+def play_again():
+    # choice = valid_input("Play again? [y|n]", ['y', 'n'])
+    choice = valid_input("Would you like to play another run? "
+                         "Please say 'yes' or 'no'.\n",
+                         "yes", "no")
+    if choice == 'no':
+        global trophy
+        trophy = random.choice(trophees)
+        print_pause('You are leaving us with '+trophy+' today')
+        print('Thanks for playing! Goodbye!')
+        exit(0)
+
+
+def game():
+
+    # Infinite loop.
+    print_pause("Medumba is an interactive story game driven by exploration")
+    response = valid_input("Please tell us. "
+                           "Would you like to play or exit?\n",
+                           "play", "exit")
+    while True:
+        if response == 'exit':
+            exit(0)
+        # All logic to play.
+        play_game()
+
+        # The stop condition.
+        play_again()
+
+
+if __name__ == '__main__':
+    game()

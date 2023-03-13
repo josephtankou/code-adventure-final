@@ -1,0 +1,45 @@
+def valid_input(prompt, opt1, opt2):
+    while True:
+        response = input(prompt).lower()
+        if opt1 in response:
+            return response
+        elif opt1 in response:
+            return response
+        else:
+            print_pause("Sorry, I don't understand.")
+    
+
+#answer = input("Do you want to play? [yes/no] ")
+answer = valid_input("Do want to play ?\n",
+                           "Yes", "No")
+print (answer)
+
+if "Yes" in answer: 
+    #print("That's great, welcome to my adventure game")
+    #answer = input("Do you want to explore a cave or jungle? [cave/jungle] ")
+    print_pause("That's great, welcome to my adventure game")
+    answer = random.choice(["cave", "jungle"])
+    if answer == "cave": 
+        #print("you go into the cave and see a bear")
+        print_pause("you go into the cave and see a bear")
+        #answer = input("Do you want to fight or run? [fight/run] ")
+        response = valid_input("Do want to fight or run ?\n",
+                           "fight", "run")
+
+        if "fight" in response:
+            print_pause("Bears are really strong! You lose!")
+        elif "run" in response:
+            print_pause("You ran away! You win!")
+        else:
+            print_pause('thank you')
+        
+    elif answer == "jungle":
+        print_pause("You meet a tiger and you get eaten! You lose!")
+    else:
+        print_pause('thank you')
+else:
+    
+    print_pause("But this is a really awesome game!")
+    play_again = valid_input("Would you like to play another round? "
+                              "Please say 'yes' or 'no'.\n",
+                              "yes", "no")
